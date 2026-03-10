@@ -883,7 +883,18 @@ p  { line-height: 1.7; color: var(--text-muted); font-size: 1rem; font-family: '
 
   /* --- Services --- */
   .services-section      { padding: 56px 5%; }
-  .services-top          { margin-bottom: 1.5rem; }
+  .services-top          { margin-bottom: 1.5rem; grid-template-columns: 1fr; gap: 16px; }
+  .services-top .btn     { display: none; }
+
+  /* --- Carousel: hide arrows, full-width cards --- */
+  .carousel-btn          { display: none !important; }
+  .carousel-wrap         { gap: 0; }
+  .carousel-dots         { margin-top: 1.2rem; }
+
+  /* --- Service cards: compact for mobile --- */
+  .service-card          { padding: 28px 20px; min-height: auto; }
+  .service-card h3       { font-size: 1.2rem; margin-bottom: 0.7rem; }
+  .service-card p        { font-size: 0.88rem; line-height: 1.6; }
 
   /* --- Sliders (remove smoke on mobile) --- */
   .slide                 { height: 200px; }
@@ -893,6 +904,10 @@ p  { line-height: 1.7; color: var(--text-muted); font-size: 1rem; font-family: '
     mask-image: none;
     -webkit-mask-image: none;
   }
+
+  /* --- Review cards: compact for mobile --- */
+  .review-card           { padding: 24px 18px; min-height: auto !important; font-size: 0.88rem; }
+  .review-card p         { font-size: 0.88rem; line-height: 1.6; }
 
   /* --- Why cards --- */
   .why-cards             { grid-template-columns: 1fr; gap: 16px; }
@@ -910,9 +925,6 @@ p  { line-height: 1.7; color: var(--text-muted); font-size: 1rem; font-family: '
   /* --- Contact --- */
   .contact-inner         { padding: 32px 20px; gap: 32px; }
   .contact-left h2       { font-size: 1.5rem; }
-
-  /* --- Reviews --- */
-  .review-card           { padding: 28px 20px; min-height: 200px; }
 
   /* --- FAQ --- */
   .faq-q                 { font-size: 0.93rem; padding: 16px 6px; }
