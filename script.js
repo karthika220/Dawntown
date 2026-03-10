@@ -288,7 +288,7 @@ function toggleFAQ(btn) {
 }
 
 /* =========================================================
-   FORM SUBMIT – TOAST
+   FORM SUBMIT – TOAST + GA4 / GOOGLE ADS TRACKING
    ========================================================= */
 function handleForm(e, formId) {
   e.preventDefault();
@@ -296,9 +296,75 @@ function handleForm(e, formId) {
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 4000);
 
-  // Optionally reset form
+  /* ── GA4: generate_lead ──
+     GTM trigger: Custom Event = generate_lead
+     GA4 tag: Event name = generate_lead  */
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: 'generate_lead',
+    form_id: formId,
+    form_name: formId === 'hero-form' ? 'Hero Booking Form' : 'Contact Form'
+  });
+
+  /* ── Google Ads Conversion (form lead) ──
+     GTM trigger: Custom Event = generate_lead
+     Google Ads Conversion tag: Conversion ID = AW-XXXXXXXXXX / Label = xxxx  */
+  window.dataLayer.push({
+    event: 'ads_conversion_lead',
+    send_to: 'AW-XXXXXXXXXX/xxxxxxxxxxxxxxxxxxxx'   // ← replace with your Conversion ID/Label
+  });
+
+  // Reset form
   document.getElementById(formId).reset();
 }
+
+/* =========================================================
+   GTM / GA4 — CLICK EVENT TRACKING
+   (runs after DOM is ready so all elements exist)
+   ========================================================= */
+document.addEventListener('DOMContentLoaded', () => {
+  window.dataLayer = window.dataLayer || [];
+
+  /* ── 1. CALL CLICK ──────────────────────────────────────
+     Fires on every tel: link (navbar, floating button, etc.)
+     GA4 Event : call_click
+     Google Ads: ads_conversion_call  */
+  document.querySelectorAll('a[href^="tel:"]').forEach(el => {
+    el.addEventListener('click', () => {
+      window.dataLayer.push({
+        event: 'call_click',
+        phone_number: el.getAttribute('href').replace('tel:', '')
+      });
+      /* Google Ads call conversion */
+      window.dataLayer.push({
+        event: 'ads_conversion_call',
+        send_to: 'AW-XXXXXXXXXX/xxxxxxxxxxxxxxxxxxxx'  // ← replace
+      });
+    });
+  });
+
+  /* ── 2. WHATSAPP CLICK ──────────────────────────────────
+     Fires on the floating WhatsApp button
+     GA4 Event : whatsapp_click  */
+  const waBtn = document.querySelector('.floating-whatsapp');
+  if (waBtn) {
+    waBtn.addEventListener('click', () => {
+      window.dataLayer.push({ event: 'whatsapp_click' });
+    });
+  }
+
+  /* ── 3. CTA / BOOK APPOINTMENT CLICK ───────────────────
+     Fires on all "Book Your Appointment" scroll-to-form links
+     GA4 Event : cta_click  */
+  document.querySelectorAll('a[href="#contact"]').forEach(el => {
+    el.addEventListener('click', () => {
+      window.dataLayer.push({
+        event: 'cta_click',
+        cta_text: el.textContent.trim()
+      });
+    });
+  });
+});
 
 /* =========================================================
    VIDEO FALLBACK – hide fallback if video loads
