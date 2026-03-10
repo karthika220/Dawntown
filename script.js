@@ -322,17 +322,25 @@ document.addEventListener('DOMContentLoaded', () => {
        • CTA Banner "Schedule Your Service"
        • Contact section phone number
        • Floating call button (bottom-right)
-     GTM Trigger  : Custom Event  = call_click
-     GA4 Event    : call_click
-     Google Ads   : Conversion ID = AW-XXXXXXXXXX / Label
+
+     Google Ads Conversion ID : AW-17986636188
+     ⚠️  Replace CALL_CONVERSION_LABEL with the label from
+         Google Ads → Goals → Conversions → [Call action]
   ═══════════════════════════════════════════════════════ */
   document.querySelectorAll('a[href^="tel:"]').forEach(el => {
     el.addEventListener('click', () => {
+      /* GA4 / GTM dataLayer event */
       window.dataLayer.push({
-        event         : 'call_click',
-        button_label  : el.textContent.trim() || el.getAttribute('aria-label') || 'Call Button',
-        phone_number  : '+91900311338'
+        event        : 'call_click',
+        button_label : el.textContent.trim() || el.getAttribute('aria-label') || 'Call Button',
+        phone_number : '+91900311338'
       });
+      /* Google Ads conversion — fires directly via gtag */
+      if (typeof gtag === 'function') {
+        gtag('event', 'conversion', {
+          'send_to': 'AW-17986636188/CALL_CONVERSION_LABEL'
+        });
+      }
     });
   });
 
@@ -340,24 +348,32 @@ document.addEventListener('DOMContentLoaded', () => {
      EVENT 2 — WHATSAPP CLICK
      Covers ALL wa.me links on the page:
        • Floating WhatsApp button (bottom-left)
-     GTM Trigger  : Custom Event  = whatsapp_click
-     GA4 Event    : whatsapp_click
+
+     Google Ads Conversion ID : AW-17986636188
+     ⚠️  Replace WA_CONVERSION_LABEL with the label from
+         Google Ads → Goals → Conversions → [WhatsApp action]
   ═══════════════════════════════════════════════════════ */
   document.querySelectorAll('a[href^="https://wa.me/"]').forEach(el => {
     el.addEventListener('click', () => {
+      /* GA4 / GTM dataLayer event */
       window.dataLayer.push({
         event        : 'whatsapp_click',
         button_label : el.textContent.trim() || el.getAttribute('aria-label') || 'WhatsApp Button',
         phone_number : '+91900311338'
       });
+      /* Google Ads conversion — fires directly via gtag */
+      if (typeof gtag === 'function') {
+        gtag('event', 'conversion', {
+          'send_to': 'AW-17986636188/WA_CONVERSION_LABEL'
+        });
+      }
     });
   });
 
   /* ═══════════════════════════════════════════════════════
-     EVENT 3 — FORM SUBMISSION (fires on thank-you.html)
-     No dataLayer.push needed here.
-     GTM reads 'form_submission' pushed in thank-you.html
-     before GTM loads, ensuring zero missed conversions.
+     EVENT 3 — FORM SUBMISSION
+     Conversion fires on thank-you.html page load via gtag.
+     No action needed here — see thank-you.html.
   ═══════════════════════════════════════════════════════ */
 });
 

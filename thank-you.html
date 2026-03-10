@@ -9,23 +9,37 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <!-- ═══════════════════════════════════════════════
+       GOOGLE ADS — Global Site Tag (gtag.js)
+       Conversion ID: AW-17986636188
+  ═══════════════════════════════════════════════ -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17986636188"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'AW-17986636188');
+
+    /* ── FORM SUBMISSION CONVERSION ────────────────────────
+       Fires ONLY when a real user lands on this page after
+       submitting the form. Zero ghost fires, zero duplicates.
+
+       ⚠️  Replace FORM_CONVERSION_LABEL with the label from:
+           Google Ads → Goals → Conversions → [your action]
+           → Tag setup → "send_to" value after the slash.
+           Example: AW-17986636188/AbCdEfGhIjKlMnOp
+    ─────────────────────────────────────────────────────── */
+    gtag('event', 'conversion', {
+      'send_to'        : 'AW-17986636188/FORM_CONVERSION_LABEL',
+      'conversion_type': 'lead'
+    });
+  </script>
+  <!-- End Google Ads Tag -->
+
+  <!-- ═══════════════════════════════════════════════
        GOOGLE TAG MANAGER — same container as index.html
        Replace GTM-XXXXXXX with your actual Container ID
   ═══════════════════════════════════════════════ -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    /* ── CONVERSION FIRE ──────────────────────────────────
-       This page loads ONLY when a real user submits the form.
-       GTM Trigger  : Custom Event  = form_submission
-       GA4 Tag      : Event name    = generate_lead
-       Google Ads   : Conversion ID = AW-XXXXXXXXXX / Label
-    ─────────────────────────────────────────────────────── */
-    window.dataLayer.push({
-      event: 'form_submission',
-      conversion_type: 'lead',
-      page_title: 'Thank You Page'
-    });
-
     (function(w,d,s,l,i){
       w[l]=w[l]||[];
       w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
