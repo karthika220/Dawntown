@@ -921,6 +921,68 @@ p  { line-height: 1.7; color: var(--text-muted); font-size: 1rem; font-family: '
   .footer                { padding: 24px 5%; font-size: 0.82rem; line-height: 1.8; }
 }
 
+/* =========================================================
+   FLOATING BUTTONS
+   ========================================================= */
+.float-btn {
+  position: fixed;
+  bottom: 28px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.22);
+  z-index: 1100;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+}
+.float-btn:hover {
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.28);
+}
+
+/* WhatsApp – left */
+.float-whatsapp {
+  left: 28px;
+  background: #25D366;
+}
+.float-whatsapp:hover { background: #1ebe5d; }
+
+/* Call – right */
+.float-call {
+  right: 28px;
+  background: var(--red);
+}
+.float-call:hover { background: var(--red-dark); }
+
+/* Pulse ring on WhatsApp */
+.float-whatsapp::before,
+.float-call::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  opacity: 0;
+  animation: float-pulse 2.4s ease-out infinite;
+}
+.float-whatsapp::before { color: #25D366; }
+.float-call::before     { color: var(--red); }
+@keyframes float-pulse {
+  0%   { opacity: 0.6; transform: scale(1); }
+  100% { opacity: 0;   transform: scale(1.55); }
+}
+
+@media (max-width: 480px) {
+  .float-btn  { width: 50px; height: 50px; font-size: 1.3rem; bottom: 20px; }
+  .float-whatsapp { left: 16px; }
+  .float-call     { right: 16px; }
+}
+
 </style>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -1343,6 +1405,14 @@ p  { line-height: 1.7; color: var(--text-muted); font-size: 1rem; font-family: '
   <div class="toast" id="toast">
     <i class="fa-solid fa-circle-check"></i> Thanks! We'll contact you within 2 hours.
   </div>
+
+  <!-- Floating Buttons -->
+  <a href="https://wa.me/91900311338" target="_blank" class="float-btn float-whatsapp" aria-label="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+  <a href="tel:+91900311338" class="float-btn float-call" aria-label="Call Us">
+    <i class="fa-solid fa-phone"></i>
+  </a>
 
   <script>
 /* =========================================================
