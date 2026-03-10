@@ -885,10 +885,14 @@ p  { line-height: 1.7; color: var(--text-muted); font-size: 1rem; font-family: '
   .services-section      { padding: 56px 5%; }
   .services-top          { margin-bottom: 1.5rem; }
 
-  /* --- Sliders --- */
+  /* --- Sliders (remove smoke on mobile) --- */
   .slide                 { height: 200px; }
-  .slider-wrapper        { padding: 16px 0; }
-  .rev-slider-wrapper    { padding: 16px 0; }
+  .slider-wrapper,
+  .rev-slider-wrapper    {
+    padding: 16px 0;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
 
   /* --- Why cards --- */
   .why-cards             { grid-template-columns: 1fr; gap: 16px; }
