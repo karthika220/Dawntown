@@ -191,6 +191,17 @@ p  { line-height: 1.7; color: var(--text-muted); font-size: 1rem; font-family: '
   display: flex;
   flex-direction: column;
 }
+.hero-form-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  color: var(--white);
+  line-height: 1.25;
+  margin-bottom: 1.2rem;
+}
+.hero-form-label strong {
+  color: var(--red);
+  font-weight: 800;
+}
 .hero-form, .contact-form {
   display: flex;
   flex-direction: column;
