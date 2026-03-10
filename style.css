@@ -846,70 +846,62 @@ p  { line-height: 1.7; color: var(--text-muted); font-size: 1rem; font-family: '
   .cta-banner-img        { width: 100%; height: 220px; }
 }
 
-/* ---- TABLET narrow  ≤ 768px ---- */
+/* ---- TABLET narrow / ALL PHONES  ≤ 768px ---- */
 @media (max-width: 768px) {
-  :root { --section-pad: 72px 5%; }
-  .why-cards             { grid-template-columns: 1fr; }
-  .slide                 { height: 240px; }
-  .contact-inner         { padding: 40px 24px; }
-  .cta-banner-inner      { padding: 36px 28px; }
-  .cta-banner-text h2    { font-size: clamp(1.3rem, 4vw, 1.8rem); }
-  .services-top          { margin-bottom: 2rem; }
-  .hero-inner            { padding: 40px 5%; }
-  .location-map          { min-height: 320px; }
-  .location-map iframe   { min-height: 320px; }
-}
-
-/* ---- MOBILE  ≤ 480px ---- */
-@media (max-width: 480px) {
-  :root { --section-pad: 56px 5%; }
-
-  /* --- Navbar: centered logo, hide CTA --- */
-  .nav-inner             { justify-content: center; }
-  .nav-cta               { display: none; }
+  :root { --section-pad: 64px 5%; }
 
   /* --- Hero --- */
-  .hero-inner            { grid-template-columns: 1fr; padding: 40px 5% 56px; gap: 32px; }
-  .hero-heading          { font-size: clamp(1.8rem, 8vw, 2.4rem); }
-  .hero-sub              { font-size: 0.93rem; }
-  .badge                 { font-size: 0.8rem; padding: 6px 12px; }
+  .hero-inner            { padding: 40px 5% 56px; gap: 32px; }
+  .hero-heading          { font-size: clamp(1.8rem, 7vw, 2.4rem); }
+  .hero-sub              { font-size: 0.95rem; }
 
   /* --- Buttons --- */
   .btn                   { padding: 12px 20px; font-size: 0.9rem; }
 
   /* --- Video --- */
-  .video-section         { padding: 40px 5%; }
+  .video-section         { padding: 48px 5%; }
   .video-wrap            { aspect-ratio: 16/9; }
 
   /* --- Services --- */
   .services-section      { padding: 56px 5%; }
-  .services-top          { margin-bottom: 1.5rem; grid-template-columns: 1fr; gap: 16px; }
+  .services-top          { grid-template-columns: 1fr; gap: 16px; margin-bottom: 1.5rem; }
   .services-top .btn     { display: none; }
 
-  /* --- Carousel: hide arrows, full-width cards --- */
+  /* --- Carousel: hide arrows, 1 card full-width --- */
   .carousel-btn          { display: none !important; }
   .carousel-wrap         { gap: 0; }
   .carousel-dots         { margin-top: 1.2rem; }
 
-  /* --- Service cards: compact for mobile --- */
+  /* --- Service cards: compact --- */
   .service-card          { padding: 28px 20px; min-height: auto; }
-  .service-card h3       { font-size: 1.2rem; margin-bottom: 0.7rem; }
-  .service-card p        { font-size: 0.88rem; line-height: 1.6; }
+  .service-card h3       { font-size: 1.25rem; margin-bottom: 0.7rem; }
+  .service-card p        { font-size: 0.9rem; line-height: 1.65; }
 
-  /* --- Sliders (remove smoke on mobile) --- */
-  .slide                 { height: 200px; }
+  /* --- Sliders: remove smoke, show 1 card fully --- */
+  .slide                 { height: 220px; }
   .slider-wrapper,
   .rev-slider-wrapper    {
     padding: 16px 0;
     mask-image: none;
     -webkit-mask-image: none;
   }
+  .rev-slider-wrapper    { overflow: visible; }
 
-  /* --- Review cards: compact, no smoke-focus on mobile --- */
+  /* --- Advanced slider: remove blur/opacity on inactive --- */
+  .slide {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+  .slide.active {
+    border: 2px solid var(--red);
+    transform: none !important;
+  }
+
+  /* --- Review cards: 1 card, no smoke-focus --- */
   .review-card {
-    padding: 24px 18px;
+    padding: 28px 20px;
     min-height: auto !important;
-    font-size: 0.88rem;
     opacity: 1 !important;
     filter: none !important;
     transform: none !important;
@@ -920,8 +912,7 @@ p  { line-height: 1.7; color: var(--text-muted); font-size: 1rem; font-family: '
     border-bottom-color: var(--red);
     transform: none !important;
   }
-  .review-card p         { font-size: 0.88rem; line-height: 1.6; }
-  .rev-slider-wrapper    { overflow: visible; }
+  .review-card p         { font-size: 0.9rem; line-height: 1.65; }
 
   /* --- Why cards --- */
   .why-cards             { grid-template-columns: 1fr; gap: 16px; }
@@ -929,16 +920,64 @@ p  { line-height: 1.7; color: var(--text-muted); font-size: 1rem; font-family: '
   .why-icon              { width: 56px; height: 56px; font-size: 1.3rem; }
 
   /* --- Location --- */
-  .location-map          { min-height: 260px; }
-  .location-map iframe   { min-height: 260px; }
+  .location-map          { min-height: 280px; }
+  .location-map iframe   { min-height: 280px; }
 
   /* --- CTA Banner --- */
-  .cta-banner-inner      { padding: 28px 20px; grid-template-columns: 1fr; }
+  .cta-banner-inner      { padding: 32px 24px; grid-template-columns: 1fr; }
+  .cta-banner-text h2    { font-size: clamp(1.3rem, 4vw, 1.8rem); }
   .cta-banner-img        { display: none; }
 
   /* --- Contact --- */
-  .contact-inner         { padding: 32px 20px; gap: 32px; }
+  .contact-inner         { grid-template-columns: 1fr; padding: 36px 24px; gap: 32px; }
   .contact-left h2       { font-size: 1.5rem; }
+
+  /* --- Section titles --- */
+  .section-title         { font-size: clamp(1.4rem, 6vw, 1.8rem); margin-bottom: 1.5rem; }
+  .section-subtitle      { font-size: 0.93rem; margin-bottom: 2rem; }
+
+  /* --- FAQ --- */
+  .faq-q                 { font-size: 0.95rem; padding: 16px 8px; }
+  .faq-a p               { font-size: 0.9rem; }
+
+  /* --- Tags --- */
+  .tags-section          { padding: 48px 5% 56px; }
+  .tag                   { font-size: 0.85rem; padding: 6px 14px; }
+
+  /* --- Footer --- */
+  .footer                { padding: 28px 5%; font-size: 0.85rem; }
+}
+
+/* ---- SMALL PHONES  ≤ 480px ---- */
+@media (max-width: 480px) {
+  :root { --section-pad: 48px 5%; }
+
+  /* --- Navbar: centered logo, hide CTA --- */
+  .nav-inner             { justify-content: center; }
+  .nav-cta               { display: none; }
+
+  /* --- Hero --- */
+  .hero-heading          { font-size: clamp(1.6rem, 8vw, 2rem); }
+  .badge                 { font-size: 0.78rem; padding: 6px 12px; }
+
+  /* --- Sliders --- */
+  .slide                 { height: 180px; }
+
+  /* --- Service cards tighter --- */
+  .service-card          { padding: 24px 16px; }
+  .service-card h3       { font-size: 1.15rem; }
+  .service-card p        { font-size: 0.86rem; }
+
+  /* --- Review cards tighter --- */
+  .review-card           { padding: 24px 16px; }
+  .review-card p         { font-size: 0.86rem; }
+
+  /* --- Location --- */
+  .location-map          { min-height: 240px; }
+  .location-map iframe   { min-height: 240px; }
+
+  /* --- Contact --- */
+  .contact-inner         { padding: 28px 16px; }
 
   /* --- FAQ --- */
   .faq-q                 { font-size: 0.93rem; padding: 16px 6px; }

@@ -42,7 +42,7 @@ animEls.forEach((el, i) => {
   let current = 0;
 
   const visibleCount = () =>
-    window.innerWidth <= 600 ? 1 :
+    window.innerWidth <= 768 ? 1 :
     window.innerWidth <= 1024 ? 2 : 3;
 
   const maxIndex = () => Math.max(0, cards.length - visibleCount());
@@ -161,7 +161,7 @@ animEls.forEach((el, i) => {
 
   /* ── Responsive card count ───────────────────────────── */
   function visibleCount() {
-    return window.innerWidth <= 480  ? 1
+    return window.innerWidth <= 768  ? 1
          : window.innerWidth <= 1024 ? 2
          : 3;
   }
@@ -263,9 +263,9 @@ animEls.forEach((el, i) => {
   if (index < 0) index = 0;
   let autoTimer;
 
-  /* Responsive: 1 card ≤480px | 2 cards ≤1024px | 3 cards desktop */
+  /* Responsive: 1 card ≤768px | 2 cards ≤1024px | 3 cards desktop */
   function visibleCount() {
-    return window.innerWidth <= 480 ? 1
+    return window.innerWidth <= 768 ? 1
          : window.innerWidth <= 1024 ? 2
          : 3;
   }
