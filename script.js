@@ -50,12 +50,14 @@ animEls.forEach((el, i) => {
   /* --- Set exact card widths based on outer container --- */
   function setCardWidths() {
     const vc      = visibleCount();
+    const gap     = vc === 1 ? 0 : GAP;          // no gap needed for 1-card view
     const totalW  = outer.clientWidth;
-    const cardW   = (totalW - GAP * (vc - 1)) / vc;
+    const cardW   = (totalW - gap * (vc - 1)) / vc;
     cards.forEach(c => {
       c.style.width    = cardW + 'px';
       c.style.minWidth = cardW + 'px';
     });
+    track.style.gap = gap + 'px';                // sync track gap to JS gap
     return cardW;
   }
 
@@ -82,8 +84,10 @@ animEls.forEach((el, i) => {
 
   /* --- Slide the track --- */
   function updateCarousel() {
+    const vc     = visibleCount();
+    const gap    = vc === 1 ? 0 : GAP;
     const cardW  = setCardWidths();
-    const offset = current * (cardW + GAP);
+    const offset = current * (cardW + gap);
     track.style.transform = `translateX(-${offset}px)`;
     prevBtn.style.opacity = current === 0 ? '0.35' : '1';
     nextBtn.style.opacity = current >= maxIndex() ? '0.35' : '1';

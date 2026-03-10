@@ -867,10 +867,12 @@ p  { line-height: 1.7; color: var(--text-muted); font-size: 1rem; font-family: '
   .services-top          { grid-template-columns: 1fr; gap: 16px; margin-bottom: 1.5rem; }
   .services-top .btn     { display: none; }
 
-  /* --- Carousel: hide arrows, 1 card full-width --- */
+  /* --- Carousel: hide arrows, force 1 card full-width --- */
   .carousel-btn          { display: none !important; }
   .carousel-wrap         { gap: 0; }
   .carousel-dots         { margin-top: 1.2rem; }
+  .carousel-track        { gap: 0 !important; }
+  .service-card          { width: 100% !important; min-width: 100% !important; }
 
   /* --- Service cards: compact --- */
   .service-card          { padding: 28px 20px; min-height: auto; }
