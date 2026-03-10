@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dawntown Detailing Studio – Porur, Chennai</title>
+  <link rel="icon" type="image/png" href="assets/Favicon.png" />
+  <style>
+/* =========================================================
+   DAWNTOWN DETAILING – LANDING PAGE CSS
+   Sections: Reset, Variables, Base, Navbar,
+             Hero, Video, Services, Advanced,
+             Location, Why, Reviews, CTA Banner,
+             Contact, FAQ, Tags, Footer, Utilities
+   ========================================================= */
+
+/* ---- RESET ---- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Poppins', sans-serif; background: #fff; color: #111; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; font-family: inherit; }
+
+/* ---- CSS VARIABLES ---- */
+:root {
+  --red:       #DC3545;
+  --red-dark:  #b02a37;
+  --black:     #0d0d0d;
+  --dark-bg:   #111111;
+  --mid-dark:  #1a1a1a;
+  --light-bg:  #f4f4f4;
+  --white:     #ffffff;
+  --text-main: #111111;
+  --text-muted:#555555;
+  --border:    #e0e0e0;
+  --section-pad: 100px 5%;
+  --section-pad-sm: 72px 5%;
+  --font-display: 'Poppins', sans-serif;
+}
+
+/* ---- BASE ---- */
+h1, h2, h3 { font-family: 'Poppins', sans-serif; font-weight: 800; line-height: 1.15; }
+h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); }
+h2 { font-size: clamp(1.7rem, 3.5vw, 2.6rem); }
+h3 { font-size: clamp(1.2rem, 2.5vw, 1.55rem); }
+p  { line-height: 1.7; color: var(--text-muted); font-size: 1rem; font-family: 'Poppins', sans-serif; }
+.section { padding: var(--section-pad); position: relative; }
+
+/* ---- BUTTONS ---- */
+.btn {
+  display: inline-block;
+  padding: 14px 28px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: background 0.22s ease, transform 0.15s ease, box-shadow 0.22s ease;
+  border-radius: 8px;
+}
+.btn-primary {
+  background: var(--red);
+  color: var(--white);
+}
+.btn-primary:hover {
+  background: var(--red-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(220,53,69,0.35);
+}
+.btn-white {
+  background: var(--white);
+  color: var(--black);
+  border: 2px solid var(--black);
+}
+.btn-white:hover {
+  background: var(--black);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+.btn-full { width: 100%; text-align: center; }
+
+/* ---- SECTION TITLES ---- */
+.section-title {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+}
+.section-subtitle {
+  text-align: center;
+  margin-top: -1.5rem;
+  margin-bottom: 3rem;
+  font-size: 1.05rem;
+  color: var(--text-muted);
+}
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: var(--black);
+  padding: 0 5%;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  transition: box-shadow 0.3s;
+}
+.navbar.scrolled {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+.nav-inner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: 1.4rem;
+  line-height: 1.1;
+  color: var(--white);
+}
+.logo-dawn { color: var(--white); }
+.logo-town { color: var(--white); border: 2px solid var(--red); padding: 0 3px; }
+
+/* =========================================================
+   HERO SECTION
+   ========================================================= */
+.hero-section {
+  min-height: 100vh;
+  background: var(--black);
+  display: flex;
+  align-items: center;
+  padding-top: 72px;
+  overflow: hidden;
+  position: relative;
+}
+.hero-bg-circles {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 40% 50%, rgba(200,35,58,0.08) 0%, transparent 60%),
+              radial-gradient(circle at 60% 50%, rgba(255,255,255,0.02) 0%, transparent 50%);
+  pointer-events: none;
+}
+/* Concentric ring effect */
+.hero-bg-circles::before {
+  content: '';
+  position: absolute;
+  width: 900px; height: 900px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.04);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow:
+    0 0 0 80px rgba(255,255,255,0.025),
+    0 0 0 160px rgba(255,255,255,0.02),
+    0 0 0 240px rgba(255,255,255,0.015),
+    0 0 0 320px rgba(255,255,255,0.01),
+    0 0 0 400px rgba(255,255,255,0.008);
+}
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  padding: 60px 5%;
+}
+.badge {
+  display: inline-block;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  color: var(--white);
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.02em;
+  border-radius: 6px;
+}
+.hero-heading {
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+.hero-sub {
+  color: rgba(255,255,255,0.65);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+/* Hero Form */
+.hero-form-wrap {
+  display: flex;
+  flex-direction: column;
+}
+.hero-form, .contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.hero-form input,
+.hero-form select,
+.contact-form input,
+.contact-form select {
+  background: var(--black);
+  border: 1.5px solid rgba(200,35,58,0.5);
+  color: var(--white);
+  padding: 15px 18px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  outline: none;
+  border-radius: 8px;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+.hero-form input:focus,
+.hero-form select:focus,
+.contact-form input:focus,
+.contact-form select:focus {
+  border-color: var(--red);
+}
+.hero-form input::placeholder,
+.contact-form input::placeholder { color: rgba(255,255,255,0.45); }
+.hero-form select,
+.contact-form select { color: rgba(255,255,255,0.45); appearance: none; }
+.hero-form select option,
+.contact-form select option { color: var(--white); background: var(--black); }
+.select-wrap { position: relative; }
+.select-arrow {
+  position: absolute;
+  right: 16px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--red);
+  pointer-events: none;
+  font-size: 0.85rem;
+}
+
+/* =========================================================
+   VIDEO SECTION
+   ========================================================= */
+.video-section {
+  background: #fff;
+  padding: 50px 5%;
+}
+.video-wrap {
+  width: 100%;
+  background: var(--black);
+  aspect-ratio: 16/6;
+  position: relative;
+  overflow: hidden;
+}
+.brand-video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.video-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--black);
+}
+.video-logo-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(3rem, 10vw, 8rem);
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(255,255,255,0.12);
+  letter-spacing: 0.05em;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: pulse-text 3s ease-in-out infinite;
+}
+@keyframes pulse-text {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+/* Show fallback always until video loads */
+.brand-video { z-index: 1; position: relative; }
+.video-fallback { z-index: 0; }
+
+/* =========================================================
+   SERVICES SECTION
+   ========================================================= */
+.services-section {
+  background: #fff;
+  padding: 100px 5%;
+  border-top: 1px solid var(--border);
+}
+.services-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+  margin-bottom: 3.5rem;
+}
+.services-heading-col h2 { color: var(--black); }
+.services-desc-col p { font-size: 1.02rem; line-height: 1.75; color: var(--text-muted); }
+
+/* Carousel */
+.carousel-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.carousel-track-outer {
+  flex: 1;
+  overflow: hidden;
+}
+.carousel-track {
+  display: flex;
+  gap: 24px;
+  transition: transform 0.48s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+/* ---- SERVICE CARD ---- */
+.service-card {
+  flex-shrink: 0;
+  background: var(--light-bg);
+  padding: 40px 32px;
+  border-radius: 12px;
+  border: 1.5px solid transparent;
+  border-bottom: 3px solid transparent;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+  display: flex;
+  flex-direction: column;
+  min-height: 260px;
+}
+.service-card:hover {
+  border-color: var(--red);
+  border-bottom-color: var(--red);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.09);
+  transform: translateY(-5px);
+}
+.service-card h3 {
+  color: var(--red);
+  font-size: 1.45rem;
+  font-weight: 800;
+  margin-bottom: 1.1rem;
+  line-height: 1.2;
+}
+.service-card p {
+  color: var(--text-muted);
+  font-size: 0.93rem;
+  line-height: 1.75;
+  flex: 1;
+}
+
+/* ---- CAROUSEL BUTTONS ---- */
+.carousel-btn {
+  width: 48px; height: 48px;
+  background: var(--red);
+  color: white;
+  border: none;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+  transition: background 0.2s, transform 0.15s;
+  border-radius: 8px;
+}
+.carousel-btn:hover { background: var(--red-dark); transform: scale(1.08); }
+
+/* ---- CAROUSEL DOTS ---- */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 2rem;
+}
+.carousel-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.25s, width 0.25s;
+  flex-shrink: 0;
+}
+.carousel-dot.active {
+  background: var(--red);
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* =========================================================
+   ADVANCED SOLUTIONS SECTION
+   ========================================================= */
+.advanced-section {
+  background: #fff;
+  padding: 100px 5%;
+  border-top: 1px solid var(--border);
+}
+/* ---- SMOKE-FOCUS SLIDER ---- */
+.slider-wrapper {
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+  padding: 24px 0;           /* room for the scaled-up active card */
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+}
+.slider {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.slide {
+  flex-shrink: 0;
+  /* width set by JS to fill exactly 3 per view */
+  height: 340px;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+  opacity: 0.45;
+  filter: blur(2px);
+  transform: scale(0.88);
+  cursor: pointer;
+}
+.slide.active {
+  opacity: 1;
+  filter: none;
+  transform: scale(1.08);
+  z-index: 2;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.22);
+}
+.advanced-cta { text-align: center; }
+
+/* =========================================================
+   LOCATION SECTION
+   ========================================================= */
+.location-section {
+  background: #fff;
+  padding: 100px 5%;
+  border-top: 1px solid var(--border);
+}
+.location-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: stretch;
+}
+.location-text h2 { margin-bottom: 1rem; }
+.location-text > p { margin-bottom: 2rem; }
+.hours-block h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--black);
+}
+.hours-table { width: 100%; border-collapse: collapse; }
+.hours-table tr { border-bottom: 1px solid var(--border); }
+.hours-table td {
+  padding: 10px 4px;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+.hours-table td:last-child { text-align: right; }
+.location-map {
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  min-height: 420px;
+}
+.location-map iframe {
+  display: block;
+  border: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+}
+
+/* =========================================================
+   WHY CHOOSE US
+   ========================================================= */
+.why-section {
+  background: var(--white);
+  padding: 100px 5%;
+  border-top: 1px solid var(--border);
+}
+.why-section .section-title { margin-bottom: 3rem; }
+.why-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 2.5rem;
+}
+.why-card {
+  border: 1.5px solid var(--border);
+  padding: 40px 32px;
+  text-align: center;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+  border-radius: 12px;
+}
+.why-card:hover {
+  border-color: var(--red);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+  transform: translateY(-5px);
+}
+.why-icon {
+  width: 72px; height: 72px;
+  background: var(--black);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 1.6rem;
+  color: var(--red);
+  transition: background 0.25s, transform 0.25s;
+}
+.why-icon--img {
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+}
+.why-icon--img img {
+  width: 72px; height: 72px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+.why-card:hover .why-icon { transform: scale(1.1); }
+.why-card h3 { margin-bottom: 1rem; font-size: 1.25rem; color: var(--black); }
+.why-card p { font-size: 0.95rem; color: var(--text-muted); }
+.why-cta { text-align: center; margin-top: 1rem; }
+
+/* =========================================================
+   REVIEWS – SMOKE-FOCUS SLIDER
+   ========================================================= */
+.reviews-section {
+  background: var(--white);
+  padding: 100px 5%;
+  border-top: 1px solid var(--border);
+}
+.rev-slider-wrapper {
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+  padding: 24px 0;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+}
+.rev-slider {
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+  will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.review-card {
+  /* width set by JS */
+  flex-shrink: 0;
+  background: var(--light-bg);
+  padding: 40px 32px;
+  border-radius: 12px;
+  border: 1.5px solid transparent;
+  border-bottom: 3px solid transparent;
+  display: flex;
+  flex-direction: column;
+  min-height: 240px;
+  cursor: pointer;
+  /* smoke-focus inactive state */
+  opacity: 0.45;
+  filter: blur(1px);
+  transform: scale(0.88);
+  transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease,
+              border-color 0.25s, box-shadow 0.25s;
+}
+.review-card.active {
+  opacity: 1;
+  filter: none;
+  transform: scale(1.05);
+  border-color: var(--red);
+  border-bottom-color: var(--red);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+}
+.review-card p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+.review-author strong { font-size: 1rem; color: var(--black); display: block; margin-bottom: 6px; }
+.stars { color: #f5a623; font-size: 1.15rem; letter-spacing: 3px; }
+
+/* =========================================================
+   CTA BANNER
+   ========================================================= */
+.cta-banner-section {
+  background: var(--white);
+  padding: 80px 5%;
+  border-top: 1px solid var(--border);
+}
+.cta-banner-inner {
+  background: var(--light-bg);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: center;
+  padding: 48px 48px;
+  border-radius: 16px;
+  border: 1.5px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.cta-banner-text h2 { margin-bottom: 1rem; font-size: clamp(1.5rem, 2.5vw, 2.2rem); }
+.cta-banner-text p { margin-bottom: 1.8rem; max-width: 560px; }
+.cta-banner-img {
+  width: 420px;
+  flex-shrink: 0;
+  position: relative;
+  height: 280px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+.cta-banner-img img { width: 100%; height: 100%; object-fit: cover; }
+.cta-img-placeholder {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(200,35,58,0.08);
+  font-size: 5rem;
+  color: rgba(200,35,58,0.2);
+  z-index: -1;
+}
+
+/* =========================================================
+   CONTACT SECTION
+   ========================================================= */
+.contact-section {
+  padding: 80px 5% 100px;
+  border-top: 1px solid var(--border);
+}
+.contact-inner {
+  background: var(--black);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  padding: 64px 60px;
+  border-radius: 16px;
+}
+.contact-left h2 { color: var(--white); margin-bottom: 1rem; }
+.contact-left > p { color: rgba(255,255,255,0.6); margin-bottom: 2rem; }
+.contact-details { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+.contact-details li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.contact-details a { color: rgba(255,255,255,0.7); }
+.contact-details a:hover { color: var(--red); }
+.contact-dot {
+  width: 14px; height: 14px;
+  border: 2px solid var(--red);
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+  position: relative;
+}
+.contact-dot::after {
+  content: '';
+  position: absolute;
+  width: 6px; height: 6px;
+  background: var(--red);
+  border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* =========================================================
+   FAQ
+   ========================================================= */
+.faq-section {
+  background: var(--white);
+  padding: 100px 5%;
+  border-top: 1px solid var(--border);
+}
+.faq-section h2 { margin-bottom: 2.5rem; }
+.faq-list { width: 100%; }
+.faq-item {
+  border-bottom: 1.5px solid var(--border);
+  overflow: hidden;
+}
+.faq-q {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 22px 8px;
+  font-size: 1.02rem;
+  font-family: inherit;
+  color: var(--black);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.faq-q:hover { color: var(--red); }
+.faq-text { min-width: 0; }
+.faq-icon { font-size: 1rem; color: var(--black); transition: transform 0.3s; justify-self: end; }
+.faq-item.open .faq-icon { transform: rotate(45deg); color: var(--red); }
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+}
+.faq-a p { padding: 0 8px 20px; font-size: 0.95rem; color: var(--text-muted); line-height: 1.75; }
+.faq-item.open .faq-a { max-height: 300px; }
+
+/* =========================================================
+   TAGS
+   ========================================================= */
+.tags-section {
+  background: var(--white);
+  padding: 80px 5% 100px;
+  border-top: 1px solid var(--border);
+}
+.tags-section h2 { margin-bottom: 2rem; }
+.tags-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+.tag {
+  border: 1.5px solid var(--black);
+  padding: 8px 18px;
+  font-size: 0.88rem;
+  color: var(--black);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+  letter-spacing: 0.02em;
+}
+.tag:hover {
+  background: var(--black);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer {
+  background: var(--black);
+  color: rgba(255,255,255,0.55);
+  text-align: center;
+  padding: 28px 5%;
+  font-size: 0.88rem;
+  line-height: 2;
+}
+.footer-link { color: var(--red); font-weight: 600; }
+.footer-link:hover { text-decoration: underline; }
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--black);
+  color: var(--white);
+  padding: 14px 28px;
+  font-size: 0.95rem;
+  border-left: 4px solid var(--red);
+  z-index: 9999;
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* =========================================================
+   SCROLL ANIMATIONS
+   ========================================================= */
+[data-animate] {
+  opacity: 0;
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+[data-animate="fade-up"]    { transform: translateY(40px); }
+[data-animate="fade-left"]  { transform: translateX(-40px); }
+[data-animate="fade-right"] { transform: translateX(40px); }
+[data-animate].animated {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+/* ---- TABLET  ≤ 1024px ---- */
+@media (max-width: 1024px) {
+  .hero-inner            { grid-template-columns: 1fr; gap: 40px; }
+  .services-top          { grid-template-columns: 1fr; gap: 24px; }
+  .location-inner        { grid-template-columns: 1fr; }
+  .why-cards             { grid-template-columns: 1fr 1fr; }
+  .contact-inner         { grid-template-columns: 1fr; padding: 48px 36px; }
+  .cta-banner-inner      { grid-template-columns: 1fr; }
+  .cta-banner-img        { width: 100%; height: 220px; }
+}
+
+/* ---- TABLET narrow  ≤ 768px ---- */
+@media (max-width: 768px) {
+  :root { --section-pad: 72px 5%; }
+  .why-cards             { grid-template-columns: 1fr; }
+  .slide                 { height: 240px; }
+  .contact-inner         { padding: 40px 24px; }
+  .cta-banner-inner      { padding: 36px 28px; }
+  .cta-banner-text h2    { font-size: clamp(1.3rem, 4vw, 1.8rem); }
+  .services-top          { margin-bottom: 2rem; }
+  .hero-inner            { padding: 40px 5%; }
+  .location-map          { min-height: 320px; }
+  .location-map iframe   { min-height: 320px; }
+}
+
+/* ---- MOBILE  ≤ 480px ---- */
+@media (max-width: 480px) {
+  :root { --section-pad: 56px 5%; }
+
+  /* --- Navbar: centered logo, hide CTA --- */
+  .nav-inner             { justify-content: center; }
+  .nav-cta               { display: none; }
+
+  /* --- Hero --- */
+  .hero-inner            { grid-template-columns: 1fr; padding: 40px 5% 56px; gap: 32px; }
+  .hero-heading          { font-size: clamp(1.8rem, 8vw, 2.4rem); }
+  .hero-sub              { font-size: 0.93rem; }
+  .badge                 { font-size: 0.8rem; padding: 6px 12px; }
+
+  /* --- Buttons --- */
+  .btn                   { padding: 12px 20px; font-size: 0.9rem; }
+
+  /* --- Video --- */
+  .video-section         { padding: 40px 5%; }
+  .video-wrap            { aspect-ratio: 16/9; }
+
+  /* --- Services --- */
+  .services-section      { padding: 56px 5%; }
+  .services-top          { margin-bottom: 1.5rem; }
+
+  /* --- Sliders --- */
+  .slide                 { height: 200px; }
+  .slider-wrapper        { padding: 16px 0; }
+  .rev-slider-wrapper    { padding: 16px 0; }
+
+  /* --- Why cards --- */
+  .why-cards             { grid-template-columns: 1fr; gap: 16px; }
+  .why-card              { padding: 28px 20px; }
+  .why-icon              { width: 56px; height: 56px; font-size: 1.3rem; }
+
+  /* --- Location --- */
+  .location-map          { min-height: 260px; }
+  .location-map iframe   { min-height: 260px; }
+
+  /* --- CTA Banner --- */
+  .cta-banner-inner      { padding: 28px 20px; grid-template-columns: 1fr; }
+  .cta-banner-img        { display: none; }
+
+  /* --- Contact --- */
+  .contact-inner         { padding: 32px 20px; gap: 32px; }
+  .contact-left h2       { font-size: 1.5rem; }
+
+  /* --- Reviews --- */
+  .review-card           { padding: 28px 20px; min-height: 200px; }
+
+  /* --- FAQ --- */
+  .faq-q                 { font-size: 0.93rem; padding: 16px 6px; }
+  .faq-a p               { font-size: 0.9rem; }
+
+  /* --- Tags --- */
+  .tags-section          { padding: 48px 5% 56px; }
+  .tag                   { font-size: 0.82rem; padding: 6px 14px; }
+
+  /* --- Section titles --- */
+  .section-title         { font-size: clamp(1.4rem, 6vw, 1.8rem); margin-bottom: 1.5rem; }
+  .section-subtitle      { font-size: 0.93rem; margin-bottom: 2rem; }
+
+  /* --- Footer --- */
+  .footer                { padding: 24px 5%; font-size: 0.82rem; line-height: 1.8; }
+}
+
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- =========================================================
+       NAVBAR
+  ========================================================= -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <div class="logo">
+        <span class="logo-dawn">DAWN.</span><br/>
+        <span class="logo-town">TOWN</span>
+      </div>
+      <a href="#contact" class="btn btn-primary nav-cta">Contact Us Now</a>
+    </div>
+  </nav>
+
+  <!-- =========================================================
+       SECTION 1 – HERO
+  ========================================================= -->
+  <section class="section hero-section" id="hero">
+    <div class="hero-bg-circles"></div>
+    <div class="hero-inner">
+      <!-- Left: Copy -->
+      <div class="hero-copy" data-animate="fade-left">
+        <div class="badge">Top Rated Car Detailing Studio – Porur</div>
+        <h1 class="hero-heading">Transform Your Car<br/>with Expert PPF &<br/>Coatings</h1>
+        <p class="hero-sub">Specialized in advanced car protection — enhance,<br/>shield, and maintain your vehicle's value</p>
+      </div>
+      <!-- Right: Form -->
+      <div class="hero-form-wrap" data-animate="fade-right">
+        <form class="hero-form" id="hero-form" onsubmit="handleForm(event, 'hero-form')">
+          <input type="text" placeholder="Name*" required />
+          <input type="tel" placeholder="Phone No*" required />
+          <input type="text" placeholder="Car Model*" required />
+          <div class="select-wrap">
+            <select required>
+              <option value="" disabled selected>Select Service</option>
+              <option>Graphene Coating</option>
+              <option>Ceramic Coating</option>
+              <option>PPF – Paint Protection Film</option>
+              <option>Car Detailing</option>
+              <option>Car Wash Services</option>
+              <option>Window Tinting</option>
+            </select>
+            <i class="fa-solid fa-chevron-down select-arrow"></i>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Book Your Appointment Now</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SECTION 2 – VIDEO BANNER
+  ========================================================= -->
+  <section class="section video-section" id="video">
+    <div class="video-wrap" data-animate="fade-up">
+      <video autoplay muted loop playsinline class="brand-video">
+        <source src="assets/Section 7/DawnTown-Video.mp4" type="video/mp4" />
+      </video>
+      <div class="video-fallback">
+        <span class="video-logo-text">DAWN.TOWN</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SECTION 3 – LOCAL EXPERTS + SERVICES CAROUSEL
+  ========================================================= -->
+  <section class="section services-section" id="services">
+    <div class="services-top" data-animate="fade-up">
+      <div class="services-heading-col">
+        <h2>Your Local Experts in Car Care<br/>and Protection</h2>
+        <a href="#contact" class="btn btn-primary" style="margin-top:2rem;display:inline-block">Book Your Appointment Now</a>
+      </div>
+      <div class="services-desc-col">
+        <p>From ceramic and graphene coatings to PPF and deep car detailing, we offer trusted care built for Chennai roads. Visit us in Porur and leave with a car that's protected, polished, and ready for the city.</p>
+      </div>
+    </div>
+
+    <!-- Services Carousel -->
+    <div class="carousel-wrap" data-animate="fade-up">
+      <button class="carousel-btn carousel-prev" id="svc-prev" aria-label="Previous">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      <div class="carousel-track-outer">
+        <div class="carousel-track" id="svc-track">
+          <!-- Card 1 -->
+          <div class="service-card">
+            <h3>Graphene<br/>Coating</h3>
+            <p>Next-generation protection with our graphene coating for car services. Our graphene coating in Porur provides superior heat resistance and durability.</p>
+          </div>
+          <!-- Card 2 -->
+          <div class="service-card">
+            <h3>Car<br/>Detailing</h3>
+            <p>Complete interior and exterior car detailing that restores your vehicle to showroom condition. Our interior car detailing deep cleans every surface, while exterior work includes paint correction and protection.</p>
+          </div>
+          <!-- Card 3 -->
+          <div class="service-card">
+            <h3>Car Wash<br/>Services</h3>
+            <p>Professional car wash and car cleaning designed for Porur's unique conditions. From quick maintenance washes to thorough deep cleaning sessions.</p>
+          </div>
+          <!-- Card 4 -->
+          <div class="service-card">
+            <h3>Window<br/>Tinting</h3>
+            <p>Premium sun film for car installation using the best sunfilm for the car available. Our car tint services in Porur provide excellent heat rejection and privacy while maintaining legal compliance.</p>
+          </div>
+          <!-- Card 5 -->
+          <div class="service-card">
+            <h3>Ceramic<br/>Coating</h3>
+            <p>Professional-grade ceramic coating for long-lasting gloss and protection. Hydrophobic surface repels water, dirt, and contaminants to keep your car cleaner for longer.</p>
+          </div>
+          <!-- Card 6 -->
+          <div class="service-card">
+            <h3>PPF – Paint<br/>Protection Film</h3>
+            <p>Self-healing paint protection film guards against scratches, chips, and road debris. Virtually invisible film preserves your car's original paintwork for years.</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-btn carousel-next" id="svc-next" aria-label="Next">
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+    <!-- Dots -->
+    <div class="carousel-dots" id="svc-dots"></div>
+  </section>
+
+  <!-- =========================================================
+       SECTION 4 – ADVANCED SOLUTIONS (PHOTO CAROUSEL)
+  ========================================================= -->
+  <section class="section advanced-section" id="advanced">
+    <h2 class="section-title" data-animate="fade-up">Advanced Solutions For Your Vehicle</h2>
+
+    <div class="slider-wrapper" data-animate="fade-up">
+      <div class="slider" id="adv-slider">
+        <img src="assets/Section 3/Image 1.jpg" class="slide" alt="Range Rover – PPF & Detailing" />
+        <img src="assets/Section 3/Image 2.jpg" class="slide" alt="BMW X3 – Ceramic Coating" />
+        <img src="assets/Section 3/Image 3.jpg" class="slide" alt="Skoda – Graphene Coating" />
+        <img src="assets/Section 3/Image 4.jpg" class="slide active" alt="Jeep Compass – Car Detailing" />
+        <img src="assets/Section 3/Image 5.jpg" class="slide" alt="Swift – Ceramic Coating" />
+        <img src="assets/Section 3/Image 6.jpg" class="slide" alt="Audi A4 – PPF" />
+        <img src="assets/Section 3/Image 7.jpg" class="slide" alt="Mercedes – Detailing" />
+        <img src="assets/Section 3/Image 8.jpg" class="slide" alt="Mercedes Maybach – Graphene Coating" />
+      </div>
+    </div>
+
+    <div class="advanced-cta" data-animate="fade-up">
+      <a href="#contact" class="btn btn-primary">Book Your Appointment Now</a>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SECTION 5 – LOCATION & HOURS
+  ========================================================= -->
+  <section class="section location-section" id="location">
+    <div class="location-inner">
+      <div class="location-text" data-animate="fade-left">
+        <h2>Your Neighbourhood Car<br/>Care in Porur</h2>
+        <p>Convenient hours and prime location make us the go-to choice for car wash, car detailing, and paint protection services. Visit when it works for you.</p>
+        <div class="hours-block">
+          <h4>Store Working Hours</h4>
+          <table class="hours-table">
+            <tr><td>Sunday</td><td>Closed</td></tr>
+            <tr><td>Monday</td><td>10:00 AM – 08:00 PM</td></tr>
+            <tr><td>Tuesday</td><td>10:00 AM – 08:00 PM</td></tr>
+            <tr><td>Wednesday</td><td>10:00 AM – 08:00 PM</td></tr>
+            <tr><td>Thursday</td><td>10:00 AM – 08:00 PM</td></tr>
+            <tr><td>Friday</td><td>10:00 AM – 08:00 PM</td></tr>
+            <tr><td>Saturday</td><td>10:00 AM – 08:00 PM</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="location-map" data-animate="fade-right">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.9!2d80.0!3d13.03!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5260e9cc9d9e41%3A0x0!2sPorur%2C+Chennai%2C+Tamil+Nadu!5e0!3m2!1sen!2sin!4v1"
+          width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade" title="Dawntown Location">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SECTION 6 – WHY CHOOSE US
+  ========================================================= -->
+  <section class="section why-section" id="why">
+    <h2 class="section-title" data-animate="fade-up">Why Choose Our Car Detailing Shop</h2>
+    <div class="why-cards" data-animate="fade-up">
+      <div class="why-card">
+        <div class="why-icon why-icon--img">
+          <img src="assets/Section 5/Icon 1.png" alt="Skilled Technicians" />
+        </div>
+        <h3>Skilled Technicians</h3>
+        <p>Our team undergoes regular training and certification to ensure they're experts in the newest protection and detailing methods.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon why-icon--img">
+          <img src="assets/Section 5/Icon 2.png" alt="Customer-First Approach" />
+        </div>
+        <h3>Customer-First Approach</h3>
+        <p>Flexible scheduling, clear communication, and dedicated support throughout your service experience.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon why-icon--img">
+          <img src="assets/Section 5/Icon 3.png" alt="Personalized Solutions" />
+        </div>
+        <h3>Personalized Solutions</h3>
+        <p>Every vehicle gets customized treatment based on its specific needs, usage patterns, and your preferences.</p>
+      </div>
+    </div>
+    <div class="why-cta" data-animate="fade-up">
+      <a href="#contact" class="btn btn-primary">Book Your Appointment Now</a>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SECTION 7 – CUSTOMER REVIEWS
+  ========================================================= -->
+  <section class="section reviews-section" id="reviews">
+    <h2 class="section-title" data-animate="fade-up">Customer Experience</h2>
+    <p class="section-subtitle" data-animate="fade-up">Hear how we've made car care easier, better, and worth coming back for.</p>
+
+    <div class="rev-slider-wrapper" data-animate="fade-up">
+      <div class="rev-slider" id="rev-slider">
+        <div class="review-card">
+          <p>"I recently got PPF done on my car at Dawn Town, and I'm very satisfied with the experience. The team was highly professional, explained the entire process in detail, and delivered exactly what they promised. The quality of the work is outstanding – the finish is flawless, and the car looks brand new!"</p>
+          <div class="review-author">
+            <strong>Abilesh Yadav</strong>
+            <div class="stars">★★★★★</div>
+          </div>
+        </div>
+        <div class="review-card active">
+          <p>"Downtown Auto Detail provides exceptional car detailing services that go beyond a standard car wash. Their professional approach ensures your vehicle receives comprehensive care, focusing on both aesthetic enhancement and protective maintenance. Very happy with their service."</p>
+          <div class="review-author">
+            <strong>Satheesh</strong>
+            <div class="stars">★★★★★</div>
+          </div>
+        </div>
+        <div class="review-card">
+          <p>"Pleasantly surprised by the service. One of my favorite things at this location is their infrastructure. Went for a car wash, people took great caring and attention. (Car: Verna / Car Wash: ₹900)"</p>
+          <div class="review-author">
+            <strong>Naveen Kumar</strong>
+            <div class="stars">★★★★★</div>
+          </div>
+        </div>
+        <div class="review-card">
+          <p>"I recently got ceramic coating done for my Chevrolet Beat at Dawntown Porur in Chennai. The service was exceptional, and the team was highly professional and detail-oriented. My car looks brand new, and the finish is absolutely stunning. Highly recommend this place for quality car detailing!"</p>
+          <div class="review-author">
+            <strong>Hari Shankar</strong>
+            <div class="stars">★★★★★</div>
+          </div>
+        </div>
+        <div class="review-card">
+          <p>"I had given my 3 year old white XL6 for a complete black colored PPF. Honestly I didn't expect such a finish from them. There's no place where you could find white color exposure in the exterior. Each and every trim is perfectly finished. Literally amazed by the quality work from the DAWNTOWN team!!"</p>
+          <div class="review-author">
+            <strong>Nishanth</strong>
+            <div class="stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SECTION 8 – CTA BANNER
+  ========================================================= -->
+  <section class="section cta-banner-section" id="cta-banner">
+    <div class="cta-banner-inner" data-animate="fade-up">
+      <div class="cta-banner-text">
+        <h2>Get Professional Car Detailing Results</h2>
+        <p>Durable car care solutions from ceramic coating to paint protection film. Visit our Porur center for car wash or schedule your detailing — we'll take care of everything.</p>
+        <a href="#contact" class="btn btn-white">Schedule Your Service Appointment Now</a>
+      </div>
+      <div class="cta-banner-img">
+        <img src="assets/Section 7/Image.jpg" alt="Dawntown Car Detailing" />
+        <div class="cta-img-placeholder"><i class="fa-solid fa-car"></i></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SECTION 9 – CONTACT FORM
+  ========================================================= -->
+  <section class="section contact-section" id="contact">
+    <div class="contact-inner" data-animate="fade-up">
+      <div class="contact-left">
+        <h2>Get Your Free Quote<br/>Today</h2>
+        <p>Tell us about your car and preferred services – we'll respond with pricing and availability within 2 hours.</p>
+        <ul class="contact-details">
+          <li><span class="contact-dot"></span><a href="tel:+919647774111">+91 96477 74111</a></li>
+          <li><span class="contact-dot"></span><a href="mailto:contact@dawntownchennai.com">contact@dawntownchennai.com</a></li>
+          <li><span class="contact-dot"></span>76, Kundrathur Main Rd, Ramanatheshwarar Nagar, Porur, Chennai, Tamil Nadu 600116</li>
+        </ul>
+      </div>
+      <div class="contact-right">
+        <form class="contact-form" id="contact-form" onsubmit="handleForm(event, 'contact-form')">
+          <input type="text" placeholder="Name*" required />
+          <input type="tel" placeholder="Phone No*" required />
+          <input type="text" placeholder="Car Model*" required />
+          <div class="select-wrap">
+            <select required>
+              <option value="" disabled selected>Select Service</option>
+              <option>Graphene Coating</option>
+              <option>Ceramic Coating</option>
+              <option>PPF – Paint Protection Film</option>
+              <option>Car Detailing</option>
+              <option>Car Wash Services</option>
+              <option>Window Tinting</option>
+            </select>
+            <i class="fa-solid fa-chevron-down select-arrow"></i>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Submit Now</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SECTION 10 – FAQ
+  ========================================================= -->
+  <section class="section faq-section" id="faq">
+    <h2 data-animate="fade-up">What Drivers Often Ask Us</h2>
+    <div class="faq-list" data-animate="fade-up">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-text">How does paint protection film help my car?</span>
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          <p>Paint protection film for cars acts as an invisible shield against stone chips, scratches, and environmental damage. It preserves your original paint and maintains resale value while being virtually undetectable.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-text">What's the difference between ceramic coating and graphene coating?</span>
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          <p>While ceramic coating on cars provides excellent protection and gloss, graphene coating for cars offers superior heat dissipation and enhanced durability. The graphene coating price in Chennai reflects this advanced technology.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-text">Do you offer car wash services for coated vehicles?</span>
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          <p>Yes, our car wash and car cleaning services are specifically designed to maintain ceramic coating, graphene coating, and paint protection film without causing damage.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-text">Can I get interior car detailing with exterior services?</span>
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          <p>Absolutely! Our comprehensive car detailing packages combine interior car detailing with exterior paint correction and protective treatments for complete vehicle care.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-text">What's included in your sun film for car service?</span>
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          <p>Our car tint installations use premium sun film for cars with various darkness levels. We ensure legal compliance while providing maximum heat rejection and UV protection.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-text">Are you really the closest car detailing service near me?</span>
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          <p>Our Porur location serves as a convenient car detailing shop near me for residents across Chennai. We're easily accessible with ample parking for all auto detailing services.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SECTION 11 – TAGS
+  ========================================================= -->
+  <section class="section tags-section" id="tags">
+    <h2 data-animate="fade-up">Tags</h2>
+    <div class="tags-grid" data-animate="fade-up">
+      <span class="tag">car wash near me</span>
+      <span class="tag">car wash</span>
+      <span class="tag">car cleaning chennai</span>
+      <span class="tag">car wash chennai</span>
+      <span class="tag">ceramic coating</span>
+      <span class="tag">sun film for car</span>
+      <span class="tag">ceramic coating on car</span>
+      <span class="tag">interior clean car</span>
+      <span class="tag">car detailing chennai</span>
+      <span class="tag">car detailing near me</span>
+      <span class="tag">car wash nearby</span>
+      <span class="tag">car wash near</span>
+      <span class="tag">car wash near me now</span>
+      <span class="tag">car detailing</span>
+      <span class="tag">paint protection film for car</span>
+      <span class="tag">car tinted glass</span>
+      <span class="tag">car wash services near me</span>
+      <span class="tag">best sunfilm for car</span>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================= -->
+  <footer class="footer">
+    <p>© 2025 Dawntown Detailing – All rights reserved</p>
+    <p>Marketed By <a href="https://www.profitcast.com" target="_blank" class="footer-link">Profitcast</a> — Efficient growth, delivered.</p>
+  </footer>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <i class="fa-solid fa-circle-check"></i> Thanks! We'll contact you within 2 hours.
+  </div>
+
+  <script>
+/* =========================================================
+   DAWNTOWN DETAILING – SCRIPT.JS
+   Handles: Navbar scroll, Scroll animations,
+            Services carousel, Photo auto-scroll duplicate,
+            Reviews carousel, FAQ accordion, Form toast
+   ========================================================= */
+
+/* ---- NAVBAR SCROLL ---- */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+/* ---- SCROLL ANIMATIONS ---- */
+const animEls = document.querySelectorAll('[data-animate]');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('animated');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+animEls.forEach((el, i) => {
+  el.style.transitionDelay = (i % 4) * 0.1 + 's';
+  observer.observe(el);
+});
+
+/* =========================================================
+   SERVICES CAROUSEL  –  3 cards per view (JS-driven widths)
+   ========================================================= */
+(function () {
+  const track   = document.getElementById('svc-track');
+  const prevBtn = document.getElementById('svc-prev');
+  const nextBtn = document.getElementById('svc-next');
+  const dotsWrap = document.getElementById('svc-dots');
+  const outer   = track ? track.closest('.carousel-track-outer') : null;
+  if (!track || !outer) return;
+
+  const GAP = 24;
+  const cards = Array.from(track.querySelectorAll('.service-card'));
+  let current = 0;
+
+  const visibleCount = () =>
+    window.innerWidth <= 600 ? 1 :
+    window.innerWidth <= 1024 ? 2 : 3;
+
+  const maxIndex = () => Math.max(0, cards.length - visibleCount());
+
+  /* --- Set exact card widths based on outer container --- */
+  function setCardWidths() {
+    const vc      = visibleCount();
+    const totalW  = outer.clientWidth;
+    const cardW   = (totalW - GAP * (vc - 1)) / vc;
+    cards.forEach(c => {
+      c.style.width    = cardW + 'px';
+      c.style.minWidth = cardW + 'px';
+    });
+    return cardW;
+  }
+
+  /* --- Build dot indicators --- */
+  function buildDots() {
+    if (!dotsWrap) return;
+    dotsWrap.innerHTML = '';
+    const total = maxIndex() + 1;
+    for (let i = 0; i < total; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === current ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      dot.addEventListener('click', () => { current = i; updateCarousel(); });
+      dotsWrap.appendChild(dot);
+    }
+  }
+
+  function updateDots() {
+    if (!dotsWrap) return;
+    dotsWrap.querySelectorAll('.carousel-dot').forEach((d, i) =>
+      d.classList.toggle('active', i === current)
+    );
+  }
+
+  /* --- Slide the track --- */
+  function updateCarousel() {
+    const cardW  = setCardWidths();
+    const offset = current * (cardW + GAP);
+    track.style.transform = `translateX(-${offset}px)`;
+    prevBtn.style.opacity = current === 0 ? '0.35' : '1';
+    nextBtn.style.opacity = current >= maxIndex() ? '0.35' : '1';
+    updateDots();
+  }
+
+  /* --- Button clicks --- */
+  nextBtn.addEventListener('click', () => {
+    if (current < maxIndex()) { current++; updateCarousel(); }
+  });
+  prevBtn.addEventListener('click', () => {
+    if (current > 0) { current--; updateCarousel(); }
+  });
+
+  /* --- Touch / swipe --- */
+  let startX = 0;
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (diff > 50 && current < maxIndex()) { current++; updateCarousel(); }
+    else if (diff < -50 && current > 0)   { current--; updateCarousel(); }
+  });
+
+  /* --- Resize: rebuild dots + recalculate --- */
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      current = Math.min(current, maxIndex());
+      buildDots();
+      updateCarousel();
+    }, 100);
+  });
+
+  /* --- Init --- */
+  buildDots();
+  updateCarousel();
+})();
+
+/* =========================================================
+   ADVANCED SLIDER – SMOKE-FOCUS, RESPONSIVE CARDS PER VIEW
+   ========================================================= */
+(function () {
+  const wrapper = document.querySelector('.slider-wrapper');
+  const track   = document.getElementById('adv-slider');
+  if (!track || !wrapper) return;
+
+  const slides = Array.from(track.querySelectorAll('.slide'));
+  if (!slides.length) return;
+
+  const GAP = 24;
+  let index = slides.findIndex(s => s.classList.contains('active'));
+  if (index < 0) index = 0;
+  let autoTimer;
+
+  /* Responsive: 1 card ≤480px | 2 cards ≤1024px | 3 cards desktop */
+  function visibleCount() {
+    return window.innerWidth <= 480 ? 1
+         : window.innerWidth <= 1024 ? 2
+         : 3;
+  }
+
+  /* Card width fills exactly visibleCount cards in the wrapper */
+  function cardWidth() {
+    const vc = visibleCount();
+    return (wrapper.clientWidth - (vc - 1) * GAP) / vc;
+  }
+
+  /* Set every slide's width */
+  function setWidths() {
+    const w = cardWidth();
+    slides.forEach(s => { s.style.width = w + 'px'; });
+  }
+
+  /* Translate the track so the active card is centred in the wrapper */
+  function updateSlider() {
+    const w   = cardWidth();
+    const off = (wrapper.clientWidth / 2) - (index * (w + GAP)) - (w / 2);
+    track.style.transform = `translateX(${off}px)`;
+
+    slides.forEach((s, i) => {
+      s.classList.toggle('active', i === index);
+    });
+  }
+
+  function init() {
+    setWidths();
+    updateSlider();
+  }
+
+  /* Click any card to focus it */
+  slides.forEach((s, i) => {
+    s.addEventListener('click', () => {
+      index = i;
+      updateSlider();
+      resetTimer();
+    });
+  });
+
+  /* Pause on hover */
+  wrapper.addEventListener('mouseenter', () => clearInterval(autoTimer));
+  wrapper.addEventListener('mouseleave', resetTimer);
+
+  function resetTimer() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => {
+      index = (index + 1) % slides.length;
+      updateSlider();
+    }, 3000);
+  }
+
+  /* Debounced resize */
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(init, 150);
+  });
+
+  init();
+  resetTimer();
+})();
+
+/* =========================================================
+   REVIEWS SLIDER – SMOKE-FOCUS, RESPONSIVE CARDS PER VIEW
+   ========================================================= */
+(function () {
+  const wrapper = document.querySelector('.rev-slider-wrapper');
+  const track   = document.getElementById('rev-slider');
+  if (!track || !wrapper) return;
+
+  const cards = Array.from(track.querySelectorAll('.review-card'));
+  if (!cards.length) return;
+
+  const GAP = 24;
+  let index = cards.findIndex(c => c.classList.contains('active'));
+  if (index < 0) index = 0;
+  let autoTimer;
+
+  /* Responsive: 1 card ≤480px | 2 cards ≤1024px | 3 cards desktop */
+  function visibleCount() {
+    return window.innerWidth <= 480 ? 1
+         : window.innerWidth <= 1024 ? 2
+         : 3;
+  }
+
+  function cardWidth() {
+    const vc = visibleCount();
+    return (wrapper.clientWidth - (vc - 1) * GAP) / vc;
+  }
+
+  function setWidths() {
+    const w = cardWidth();
+    cards.forEach(c => { c.style.width = w + 'px'; });
+  }
+
+  function updateSlider() {
+    const w   = cardWidth();
+    const off = (wrapper.clientWidth / 2) - (index * (w + GAP)) - (w / 2);
+    track.style.transform = `translateX(${off}px)`;
+    cards.forEach((c, i) => c.classList.toggle('active', i === index));
+  }
+
+  function init() { setWidths(); updateSlider(); }
+
+  cards.forEach((c, i) => {
+    c.addEventListener('click', () => { index = i; updateSlider(); resetTimer(); });
+  });
+
+  wrapper.addEventListener('mouseenter', () => clearInterval(autoTimer));
+  wrapper.addEventListener('mouseleave', resetTimer);
+
+  function resetTimer() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => {
+      index = (index + 1) % cards.length;
+      updateSlider();
+    }, 3000);
+  }
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(init, 150);
+  });
+
+  init();
+  resetTimer();
+})();
+
+/* =========================================================
+   FAQ ACCORDION
+   ========================================================= */
+function toggleFAQ(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+
+  // Close all
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+
+  // Open clicked (if it wasn't open)
+  if (!isOpen) { item.classList.add('open'); }
+}
+
+/* =========================================================
+   FORM SUBMIT – TOAST
+   ========================================================= */
+function handleForm(e, formId) {
+  e.preventDefault();
+  const toast = document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 4000);
+
+  // Optionally reset form
+  document.getElementById(formId).reset();
+}
+
+/* =========================================================
+   VIDEO FALLBACK – hide fallback if video loads
+   ========================================================= */
+document.addEventListener('DOMContentLoaded', () => {
+  const video = document.querySelector('.brand-video');
+  const fallback = document.querySelector('.video-fallback');
+  if (video && fallback) {
+    video.addEventListener('loadeddata', () => {
+      fallback.style.display = 'none';
+    });
+  }
+});
+
+</script>
+</body>
+</html>
