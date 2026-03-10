@@ -116,10 +116,11 @@ p  { line-height: 1.7; color: var(--text-muted); font-size: 1rem; font-family: '
   align-items: center;
 }
 .logo-img {
-  height: 48px;
+  height: 60px;
   width: auto;
   display: block;
   object-fit: contain;
+  max-width: 200px;
 }
 
 /* =========================================================
