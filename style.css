@@ -887,7 +887,10 @@ p  { line-height: 1.7; color: var(--text-muted); font-size: 1rem; font-family: '
     mask-image: none;
     -webkit-mask-image: none;
   }
-  .rev-slider-wrapper    { overflow: visible; }
+  /* Reviews: 1 card full-width, no overflow leak */
+  .rev-slider-wrapper    { overflow: hidden; }
+  .rev-slider            { gap: 0 !important; }
+  .review-card           { width: 100% !important; min-width: 100% !important; }
 
   /* --- Advanced slider: remove blur/opacity on inactive --- */
   .slide {

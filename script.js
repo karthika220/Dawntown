@@ -252,7 +252,9 @@ animEls.forEach((el, i) => {
 })();
 
 /* =========================================================
-   REVIEWS SLIDER – SMOKE-FOCUS, RESPONSIVE CARDS PER VIEW
+   REVIEWS SLIDER
+   Mobile  (≤768px) : 1 card, full-width, swipeable, no smoke
+   Desktop (>768px)  : smoke-focus, 3 cards, click-to-focus
    ========================================================= */
 (function () {
   const wrapper = document.querySelector('.rev-slider-wrapper');
@@ -274,29 +276,63 @@ animEls.forEach((el, i) => {
          : 3;
   }
 
+  function isMobile() { return visibleCount() === 1; }
+
+  function effectiveGap() { return isMobile() ? 0 : GAP; }
+
   function cardWidth() {
     const vc = visibleCount();
-    return (wrapper.clientWidth - (vc - 1) * GAP) / vc;
+    const g  = effectiveGap();
+    return (wrapper.clientWidth - g * (vc - 1)) / vc;
   }
 
   function setWidths() {
     const w = cardWidth();
-    cards.forEach(c => { c.style.width = w + 'px'; });
+    cards.forEach(c => {
+      c.style.width    = w + 'px';
+      c.style.minWidth = w + 'px';
+    });
+    track.style.gap = effectiveGap() + 'px';
   }
 
   function updateSlider() {
-    const w   = cardWidth();
-    const off = (wrapper.clientWidth / 2) - (index * (w + GAP)) - (w / 2);
+    const w = cardWidth();
+    const g = effectiveGap();
+    let off;
+
+    if (isMobile()) {
+      /* Simple: slide each card by its full width, no peeking */
+      off = -(index * w);
+      wrapper.style.overflow = 'hidden';
+    } else {
+      /* Smoke-focus: centre the active card in the wrapper */
+      off = (wrapper.clientWidth / 2) - (index * (w + g)) - (w / 2);
+      wrapper.style.overflow = '';
+    }
+
     track.style.transform = `translateX(${off}px)`;
     cards.forEach((c, i) => c.classList.toggle('active', i === index));
   }
 
   function init() { setWidths(); updateSlider(); }
 
+  /* Click any card to focus it (desktop) */
   cards.forEach((c, i) => {
     c.addEventListener('click', () => { index = i; updateSlider(); resetTimer(); });
   });
 
+  /* ── Touch / swipe ─────────────────────────────────── */
+  let touchStartX = 0;
+  track.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (diff > 40 && index < cards.length - 1) { index++; updateSlider(); resetTimer(); }
+    else if (diff < -40 && index > 0)           { index--; updateSlider(); resetTimer(); }
+  });
+
+  /* Pause on hover (desktop) */
   wrapper.addEventListener('mouseenter', () => clearInterval(autoTimer));
   wrapper.addEventListener('mouseleave', resetTimer);
 
