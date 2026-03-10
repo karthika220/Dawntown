@@ -288,82 +288,77 @@ function toggleFAQ(btn) {
 }
 
 /* =========================================================
-   FORM SUBMIT – TOAST + GA4 / GOOGLE ADS TRACKING
+   FORM SUBMIT — redirect to Thank You page
+   Conversion fires on thank-you.html page load via GTM.
+   This ensures 100% accurate tracking — no ghost fires.
    ========================================================= */
 function handleForm(e, formId) {
   e.preventDefault();
-  const toast = document.getElementById('toast');
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 4000);
 
-  /* ── GA4: generate_lead ──
-     GTM trigger: Custom Event = generate_lead
-     GA4 tag: Event name = generate_lead  */
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    event: 'generate_lead',
-    form_id: formId,
-    form_name: formId === 'hero-form' ? 'Hero Booking Form' : 'Contact Form'
-  });
+  /* Capture which form was submitted before reset */
+  const formName = formId === 'hero-form' ? 'Hero Booking Form' : 'Contact Form';
 
-  /* ── Google Ads Conversion (form lead) ──
-     GTM trigger: Custom Event = generate_lead
-     Google Ads Conversion tag: Conversion ID = AW-XXXXXXXXXX / Label = xxxx  */
-  window.dataLayer.push({
-    event: 'ads_conversion_lead',
-    send_to: 'AW-XXXXXXXXXX/xxxxxxxxxxxxxxxxxxxx'   // ← replace with your Conversion ID/Label
-  });
-
-  // Reset form
+  /* Reset form fields */
   document.getElementById(formId).reset();
+
+  /* ── Redirect to Thank You page ──────────────────────────
+     GTM fires 'form_submission' event on that page load.
+     This is the ONLY point the conversion counts — the user
+     must physically see the confirmation page.               */
+  window.location.href = 'thank-you.html?src=' + encodeURIComponent(formName);
 }
 
 /* =========================================================
-   GTM / GA4 — CLICK EVENT TRACKING
-   (runs after DOM is ready so all elements exist)
+   CONVERSION TRACKING — 3 clean events, no duplicates
+   All listeners attached once on DOMContentLoaded.
    ========================================================= */
 document.addEventListener('DOMContentLoaded', () => {
   window.dataLayer = window.dataLayer || [];
 
-  /* ── 1. CALL CLICK ──────────────────────────────────────
-     Fires on every tel: link (navbar, floating button, etc.)
-     GA4 Event : call_click
-     Google Ads: ads_conversion_call  */
+  /* ═══════════════════════════════════════════════════════
+     EVENT 1 — CALL CLICK
+     Covers ALL tel: links on the page:
+       • Navbar "Contact Us Now"
+       • CTA Banner "Schedule Your Service"
+       • Contact section phone number
+       • Floating call button (bottom-right)
+     GTM Trigger  : Custom Event  = call_click
+     GA4 Event    : call_click
+     Google Ads   : Conversion ID = AW-XXXXXXXXXX / Label
+  ═══════════════════════════════════════════════════════ */
   document.querySelectorAll('a[href^="tel:"]').forEach(el => {
     el.addEventListener('click', () => {
       window.dataLayer.push({
-        event: 'call_click',
-        phone_number: el.getAttribute('href').replace('tel:', '')
-      });
-      /* Google Ads call conversion */
-      window.dataLayer.push({
-        event: 'ads_conversion_call',
-        send_to: 'AW-XXXXXXXXXX/xxxxxxxxxxxxxxxxxxxx'  // ← replace
+        event         : 'call_click',
+        button_label  : el.textContent.trim() || el.getAttribute('aria-label') || 'Call Button',
+        phone_number  : '+91900311338'
       });
     });
   });
 
-  /* ── 2. WHATSAPP CLICK ──────────────────────────────────
-     Fires on the floating WhatsApp button
-     GA4 Event : whatsapp_click  */
-  const waBtn = document.querySelector('.floating-whatsapp');
-  if (waBtn) {
-    waBtn.addEventListener('click', () => {
-      window.dataLayer.push({ event: 'whatsapp_click' });
-    });
-  }
-
-  /* ── 3. CTA / BOOK APPOINTMENT CLICK ───────────────────
-     Fires on all "Book Your Appointment" scroll-to-form links
-     GA4 Event : cta_click  */
-  document.querySelectorAll('a[href="#contact"]').forEach(el => {
+  /* ═══════════════════════════════════════════════════════
+     EVENT 2 — WHATSAPP CLICK
+     Covers ALL wa.me links on the page:
+       • Floating WhatsApp button (bottom-left)
+     GTM Trigger  : Custom Event  = whatsapp_click
+     GA4 Event    : whatsapp_click
+  ═══════════════════════════════════════════════════════ */
+  document.querySelectorAll('a[href^="https://wa.me/"]').forEach(el => {
     el.addEventListener('click', () => {
       window.dataLayer.push({
-        event: 'cta_click',
-        cta_text: el.textContent.trim()
+        event        : 'whatsapp_click',
+        button_label : el.textContent.trim() || el.getAttribute('aria-label') || 'WhatsApp Button',
+        phone_number : '+91900311338'
       });
     });
   });
+
+  /* ═══════════════════════════════════════════════════════
+     EVENT 3 — FORM SUBMISSION (fires on thank-you.html)
+     No dataLayer.push needed here.
+     GTM reads 'form_submission' pushed in thank-you.html
+     before GTM loads, ensuring zero missed conversions.
+  ═══════════════════════════════════════════════════════ */
 });
 
 /* =========================================================
