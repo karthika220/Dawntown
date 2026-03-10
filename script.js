@@ -124,78 +124,119 @@ animEls.forEach((el, i) => {
 })();
 
 /* =========================================================
-   ADVANCED SLIDER – SMOKE-FOCUS, RESPONSIVE CARDS PER VIEW
+   ADVANCED SLIDER – SMOKE-FOCUS, SEAMLESS INFINITE LOOP
+   Clone technique: original slides are duplicated at the
+   end of the track. When the last clone becomes active we
+   silently snap back to the matching real slide — giving a
+   perfectly seamless, never-ending loop.
    ========================================================= */
 (function () {
   const wrapper = document.querySelector('.slider-wrapper');
   const track   = document.getElementById('adv-slider');
   if (!track || !wrapper) return;
 
-  const slides = Array.from(track.querySelectorAll('.slide'));
-  if (!slides.length) return;
+  const origSlides = Array.from(track.querySelectorAll('.slide'));
+  if (!origSlides.length) return;
 
-  const GAP = 24;
-  let index = slides.findIndex(s => s.classList.contains('active'));
+  const origCount = origSlides.length;        // 8 real slides
+  const GAP       = 24;
+  const TRANS_MS  = 500;                      // matches CSS: .slider { transition: transform 0.5s }
+
+  /* ── Append clones of all originals ─────────────────── */
+  origSlides.forEach(s => {
+    const clone = s.cloneNode(true);
+    clone.classList.remove('active');
+    track.appendChild(clone);
+  });
+
+  /* allSlides = originals (0‥7) + clones (8‥15) */
+  const allSlides = Array.from(track.children);
+
+  /* Start on the original active slide */
+  let index = origSlides.findIndex(s => s.classList.contains('active'));
   if (index < 0) index = 0;
-  let autoTimer;
 
-  /* Responsive: 1 card ≤480px | 2 cards ≤1024px | 3 cards desktop */
+  let autoTimer;
+  let locked = false;    // prevent double-fire during snap
+
+  /* ── Responsive card count ───────────────────────────── */
   function visibleCount() {
-    return window.innerWidth <= 480 ? 1
+    return window.innerWidth <= 480  ? 1
          : window.innerWidth <= 1024 ? 2
          : 3;
   }
 
-  /* Card width fills exactly visibleCount cards in the wrapper */
   function cardWidth() {
     const vc = visibleCount();
     return (wrapper.clientWidth - (vc - 1) * GAP) / vc;
   }
 
-  /* Set every slide's width */
+  /* ── Set widths on every slide (originals + clones) ──── */
   function setWidths() {
     const w = cardWidth();
-    slides.forEach(s => { s.style.width = w + 'px'; });
+    allSlides.forEach(s => { s.style.width = w + 'px'; });
   }
 
-  /* Translate the track so the active card is centred in the wrapper */
-  function updateSlider() {
+  /* ── Paint active class & translate track ────────────── */
+  function paint(animate) {
+    if (!animate) {
+      track.style.transition = 'none';
+      allSlides.forEach(s => s.style.transition = 'none');
+    }
     const w   = cardWidth();
     const off = (wrapper.clientWidth / 2) - (index * (w + GAP)) - (w / 2);
     track.style.transform = `translateX(${off}px)`;
 
-    slides.forEach((s, i) => {
-      s.classList.toggle('active', i === index);
-    });
+    /* Active = current index; also mirror on the original counterpart */
+    allSlides.forEach((s, i) => s.classList.toggle('active', i === index));
+
+    if (!animate) {
+      /* Force reflow so the browser commits the instant snap */
+      void track.offsetWidth;
+      track.style.transition = '';
+      allSlides.forEach(s => s.style.transition = '');
+    }
   }
 
-  function init() {
-    setWidths();
-    updateSlider();
+  function init() { setWidths(); paint(true); }
+
+  /* ── Auto-advance with seamless wrap ─────────────────── */
+  function advance() {
+    if (locked) return;
+    index++;
+    paint(true);
+
+    /* If we've just shown a clone, snap back to the real slide */
+    if (index >= origCount) {
+      locked = true;
+      setTimeout(() => {
+        index = index - origCount;   // maps clone N → original N
+        paint(false);                // instant, no flash
+        locked = false;
+      }, TRANS_MS + 30);             // wait for CSS transition to finish
+    }
   }
 
-  /* Click any card to focus it */
-  slides.forEach((s, i) => {
+  /* ── Click any original slide to jump to it ─────────── */
+  origSlides.forEach((s, i) => {
     s.addEventListener('click', () => {
+      if (locked) return;
       index = i;
-      updateSlider();
+      paint(true);
       resetTimer();
     });
   });
 
-  /* Pause on hover */
+  /* ── Pause on hover ──────────────────────────────────── */
   wrapper.addEventListener('mouseenter', () => clearInterval(autoTimer));
   wrapper.addEventListener('mouseleave', resetTimer);
 
   function resetTimer() {
     clearInterval(autoTimer);
-    autoTimer = setInterval(() => {
-      index = (index + 1) % slides.length;
-      updateSlider();
-    }, 3000);
+    autoTimer = setInterval(advance, 3000);
   }
 
-  /* Debounced resize */
+  /* ── Debounced resize ────────────────────────────────── */
   let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
